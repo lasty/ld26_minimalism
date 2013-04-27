@@ -15,7 +15,6 @@ GLEW http://glew.sourceforge.net/
 * Get sources for required libraries into libs folder
 
 	$ cd libs
-
 	$ wget http://www.libsdl.org/tmp/SDL-2.0.tar.gz
 	$ tar -xf SDL-2.0.tar.gz
 	$ mv SDL-2.0.0* SDL2
@@ -23,6 +22,7 @@ GLEW http://glew.sourceforge.net/
 
 
 (put glew-1.9.0.tgz into libs folder)
+
 	$ tar -xf glew-1.9.0.tgz
 	$ mv glew-1.9.0 glew
 	$ rm glew-1.9.0.tgz

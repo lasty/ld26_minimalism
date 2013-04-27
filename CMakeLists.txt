@@ -14,11 +14,17 @@ include_directories(libs/SDL2/include)
 include_directories(libs/glew/include)
 find_library(GLEW_LIBRARY NAMES glew32 PATHS libs/glew/lib)
 
-message(GLEW_LIB ${GLEW_LIBRARY})
+message("GLEW_LIB: ${GLEW_LIBRARY}")
+
+#Opengl
+find_package(OpenGL)
+
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
+
 add_executable(lasty_ld26_minimalism main.cpp game.cpp)
 
-target_link_libraries(lasty_ld26_minimalism ${GLEW_LIBRARY})
+target_link_libraries(lasty_ld26_minimalism ${GLEW_LIBRARY} SDL2 ${OPENGL_LIBRARY})
 
