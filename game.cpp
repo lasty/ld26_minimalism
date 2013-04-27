@@ -1,6 +1,8 @@
 
 #include "game.h"
 
+#include "colour.h"
+
 #include <iostream>
 using std::cout;
 using std::endl;
@@ -68,7 +70,7 @@ void GameBase::Resize(int newwidth, int newheight)
 	width = newwidth;
 	height = newheight;
 
-	cout << "new width = " << width << "  height = " << height << endl;
+	//cout << "new width = " << width << "  height = " << height << endl;
 	glViewport(0, 0, width, height);
 
 	glMatrixMode(GL_PROJECTION);
@@ -119,6 +121,7 @@ void GameBase::Run()
 
 
 MinGame::MinGame()
+: thefont(2)
 {
 
 }
@@ -149,10 +152,21 @@ void MinGame::Render()
 	glVertex3f(0, 512, 0);
 	glEnd();
 */
+	Colour white{1.0f, 1.0f, 1.0f, 1.0f};  //#ffffff
+	Colour blue{0.0f, 0.0f, 1.0f, 1.0f};  //#0000ff
+	Colour green{0.0f, 1.0f, 0.0f, 1.0f}; //#00ff00
 
-	thefont.DrawText(1,10, "HI, 1234567890\nTHIS IS COOL SHIT!\nHello, World!");
+
+	thefont.DrawText(1,10, "HI, 1234567890\nTHIS IS COOL SHIT!\nHello, World!", white);
 
 
-	thefont.DrawText(0,20, "0,10 Hello, World! @");
+	thefont.DrawText(3,15, "Hello,@^ World!@", white, blue);
+
+	thefont.DrawText(0,1, "xxxxxxxxx1xxxxxxxxx2xxxxxxxxx3xxxxxxxxx4", white);
+
+	for (int y=2; y<=15; ++y)
+	{
+		thefont.DrawText(0,y, ">", green);
+	}
 }
 

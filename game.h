@@ -6,6 +6,9 @@
 #include <string>
 using std::string;
 
+#include "font.h"
+
+
 class GameBase
 {
 public:
@@ -32,7 +35,6 @@ public:
 	bool running = false;
 };
 
-#include "font.h"
 
 class MinGame : public GameBase
 {
