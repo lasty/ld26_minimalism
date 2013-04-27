@@ -24,7 +24,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
 
-add_executable(lasty_ld26_minimalism main.cpp game.cpp)
+add_executable(lasty_ld26_minimalism main.cpp game.cpp font.cpp)
 
 target_link_libraries(lasty_ld26_minimalism ${GLEW_LIBRARY} SDL2 ${OPENGL_LIBRARY})
 

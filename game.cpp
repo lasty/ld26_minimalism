@@ -9,7 +9,7 @@ using std::endl;
 using std::runtime_error;
 
 
-MinGame::MinGame()
+GameBase::GameBase()
 {
 	SDL_Init(SDL_INIT_VIDEO);
 
@@ -24,10 +24,11 @@ MinGame::MinGame()
 		throw runtime_error("Could not initialize GLEW opengl library");
 	}
 	
+	Resize(width, height);
 }
 
 
-MinGame::~MinGame()
+GameBase::~GameBase()
 {
 	SDL_GL_DeleteContext(glcontext);
 	glcontext = nullptr;
@@ -38,7 +39,7 @@ MinGame::~MinGame()
 }
 
 
-void MinGame::ProcessEvent(SDL_Event &event)
+void GameBase::ProcessEvent(SDL_Event &event)
 {
 	switch (event.type)
 	{
@@ -49,12 +50,12 @@ void MinGame::ProcessEvent(SDL_Event &event)
 }
 
 
-void MinGame::Update(float dt)
+void GameBase::Update(float dt)
 {
 }
 
 
-void MinGame::Render()
+void GameBase::Render()
 {
 	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);  //#1a334d
 
@@ -62,8 +63,26 @@ void MinGame::Render()
 
 }
 
+void GameBase::Resize(int newwidth, int newheight)
+{
+	width = newwidth;
+	height = newheight;
 
-void MinGame::Run()
+	cout << "new width = " << width << "  height = " << height << endl;
+	glViewport(0, 0, width, height);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0, width, 0, height,  -1.0, 1.0);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+
+}
+
+
+void GameBase::Run()
 {
 	running = true;
 
@@ -75,7 +94,14 @@ void MinGame::Run()
 	{
 		while ( SDL_PollEvent(&event) )
 		{
-			ProcessEvent(event);
+			if (event.type == SDL_QUIT)
+			{
+				running = false;
+			}
+			else
+			{
+				ProcessEvent(event);
+			}
 		}
 
 		auto time = SDL_GetTicks() - last_time;
@@ -88,10 +114,45 @@ void MinGame::Run()
 
 		SDL_GL_SwapWindow(window);
 	}
+}
 
-	
+
+
+MinGame::MinGame()
+{
+
+}
+
+MinGame::~MinGame()
+{
 
 }
 
 
+void MinGame::Render()
+{
+	GameBase::Render();
+
+	glDisable(GL_TEXTURE_2D);
+
+/*
+	glBegin(GL_LINES);
+	glVertex3f(0,0,0);
+	glVertex3f(1,1,0);
+
+	glVertex3f(1,0,0);
+	glVertex3f(0,1,0);
+
+	glVertex3f(0,0,0);
+	glVertex3f(512, 512, 0);
+	glVertex3f(512,0,0);
+	glVertex3f(0, 512, 0);
+	glEnd();
+*/
+
+	thefont.DrawText(1,10, "HI, 1234567890\nTHIS IS COOL SHIT!\nHello, World!");
+
+
+	thefont.DrawText(0,20, "0,10 Hello, World! @");
+}
 

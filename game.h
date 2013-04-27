@@ -6,18 +6,20 @@
 #include <string>
 using std::string;
 
-class MinGame
+class GameBase
 {
 public:
-	MinGame();
-	~MinGame();
+	GameBase();
+	virtual ~GameBase();
 
 	void Run();
-	void ProcessEvent(SDL_Event &e);
+	virtual void ProcessEvent(SDL_Event &e);
 
-	void Update(float dt);
+	virtual void Update(float dt);
 
-	void Render();
+	virtual void Render();
+
+	virtual void Resize(int newwidth, int newheight);
 
 	unsigned width = 640;
 	unsigned height = 480;
@@ -28,9 +30,18 @@ public:
 	SDL_Window *window = nullptr;
 	SDL_GLContext glcontext = nullptr;
 	bool running = false;
-
-
-
 };
 
+#include "font.h"
+
+class MinGame : public GameBase
+{
+	public:
+	MinGame();
+	virtual ~MinGame();
+
+	void Render();
+
+	Font thefont;
+};
 
