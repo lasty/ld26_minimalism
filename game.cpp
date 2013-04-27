@@ -124,6 +124,14 @@ MinGame::MinGame()
 : thefont(2)
 {
 
+	for (auto filename : { "Level1.json", "data/Level1.json", "../data/Level1.json" })
+	{
+		ifstream in(filename);
+		if (not in.good()) continue;
+
+		level1.Load(in);
+	}
+
 }
 
 MinGame::~MinGame()
@@ -131,6 +139,41 @@ MinGame::~MinGame()
 
 }
 
+
+Colour white{1.0f, 1.0f, 1.0f, 1.0f};  //#ffffff
+Colour blue{0.0f, 0.0f, 1.0f, 1.0f};  //#0000ff
+Colour green{0.0f, 1.0f, 0.0f, 1.0f}; //#00ff00
+
+
+void MinGame::RenderMap(int index=0)
+{
+	Level &l = level1.levels[index];
+
+	for (int y=0; y<l.height; y++)
+	//for (int y=0; y<10; y++)
+	{
+		string line;
+		for (int x=0; x<l.width; x++)
+		//for (int x=0; x<10; x++)
+		{
+			unsigned char ch = l.Get(x,y);
+			bool test = ch == 97;
+
+			if (ch == 0)
+				ch = ' ';
+			else
+				ch = ch + ' ' - 1;
+
+
+			line.push_back(ch);
+			string chs;  chs.push_back(ch);
+
+			thefont.DrawText(x,15-y, chs, white, blue);
+		}
+
+		//thefont.DrawText(0,15-y, line, white, blue);
+	}
+}
 
 void MinGame::Render()
 {
@@ -152,13 +195,11 @@ void MinGame::Render()
 	glVertex3f(0, 512, 0);
 	glEnd();
 */
-	Colour white{1.0f, 1.0f, 1.0f, 1.0f};  //#ffffff
-	Colour blue{0.0f, 0.0f, 1.0f, 1.0f};  //#0000ff
-	Colour green{0.0f, 1.0f, 0.0f, 1.0f}; //#00ff00
 
+	RenderMap();
 
+/*
 	thefont.DrawText(1,10, "HI, 1234567890\nTHIS IS COOL SHIT!\nHello, World!", white);
-
 
 	thefont.DrawText(3,15, "Hello,@^ World!@", white, blue);
 
@@ -168,5 +209,6 @@ void MinGame::Render()
 	{
 		thefont.DrawText(0,y, ">", green);
 	}
+*/
 }
 

@@ -8,6 +8,7 @@ using std::string;
 
 #include "font.h"
 
+#include "tilemap.h"
 
 class GameBase
 {
@@ -43,7 +44,11 @@ class MinGame : public GameBase
 	virtual ~MinGame();
 
 	void Render();
+	void RenderMap(int index);
 
 	Font thefont;
+
+	JsonMap level1;
+	
 };
 

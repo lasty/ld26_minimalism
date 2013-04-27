@@ -65,7 +65,7 @@ void Font::DrawText(int x, int y, const string &txt, const Colour &fg)
 	float x1 = x * tilesizex;
 	float y1 = y * tilesizey;
 
-	for (char ch : txt)
+	for (unsigned char ch : txt)
 	{
 		if (ch == '\n')
 		{
@@ -73,6 +73,7 @@ void Font::DrawText(int x, int y, const string &txt, const Colour &fg)
 			y1 -= tilesizey;
 			continue;
 		}
+
 		else if (ch == ' ')
 		{
 			x1 += tilesizex;
